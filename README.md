@@ -1,0 +1,1 @@
+A C++-based interpeter for [Lox](https://craftinginterpreters.com/the-lox-language.html) written while following the Crafting Interpeters book.
