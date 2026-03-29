@@ -1,13 +1,38 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <string>
+#include <vector>
+#include "scanner.hpp"
 
-void runFile(std::string path){
-    // Read the file here
-    // Then call "run" on the contents
-    return;    
+int handleError(int line, std::string message) {
+    report(line, "", message);
+    return 1;
 }
 
-void runPrompt(){
+void report(int line, std::string where, std::string message){
+    std::cout << "[line " << line << "] Error" << where << ": " << message; 
+    return;
+}
+
+int runFile(const std::string& path){
+    int rv = 0;
+    // Read the file here
+    std::ifstream input(path, std::ios::binary);
+    if (!input.is_open()) {
+        std::cerr << "Failed to open file: " << path << std::endl;
+        return 1;
+    }
+
+    std::stringstream buffer;
+    buffer << t.rdbuf()
+    std::string source = buffer.str();
+    int = run(source);
+    // Then call "run" on the contents
+    return rv;    
+}
+
+int runPrompt(){
     while (true) {
         std::string inputs;
         std::cout << "> ";
@@ -16,22 +41,29 @@ void runPrompt(){
             break;
         }
     }
-    return;    
+    return 0;    
 }
 
-void run(std::string source) {
-    return;
+int run(std::string& source) {
+    Scanner scanner(source);
+    std::vector<Token> tokens = scanner.scanTokens();
+
+    for (auto token : tokens){
+        std::cout << token << std::endl;
+    }
+    return 0;
 }
 
 int main(int argc, char* argv[]){
+    int rv = 0;
     if (argc > 1){
         std::cout << "Usage: jlox [script]" << std::endl;
     } else if (argc == 1){
         std::string filename;
         filename.assign(argv[1]);
-        runFile(filename);
+        rv = runFile(filename);
     } else {
-        runPrompt();
+        rv = runPrompt();
     }
-    return 0;
+    return rv;
 }
