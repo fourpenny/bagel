@@ -1,4 +1,5 @@
 #include "scanner.hpp"
+#include "token.hpp"
 
 Scanner::Scanner(std::string source) : source(source) {};
 

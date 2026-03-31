@@ -5,14 +5,24 @@
 #include <vector>
 #include "scanner.hpp"
 
+void report(int line, std::string where, std::string message){
+    std::cout << "[line " << line << "] Error" << where << ": " << message; 
+    return;
+}
+
 int handleError(int line, std::string message) {
     report(line, "", message);
     return 1;
 }
 
-void report(int line, std::string where, std::string message){
-    std::cout << "[line " << line << "] Error" << where << ": " << message; 
-    return;
+int run(std::string& source) {
+    Scanner scanner(source);
+    std::vector<Token> tokens = scanner.scanTokens();
+
+    for (auto token : tokens){
+        std::cout << token << std::endl;
+    }
+    return 0;
 }
 
 int runFile(const std::string& path){
@@ -25,9 +35,9 @@ int runFile(const std::string& path){
     }
 
     std::stringstream buffer;
-    buffer << t.rdbuf()
+    buffer << input.rdbuf();
     std::string source = buffer.str();
-    int = run(source);
+    rv = run(source);
     // Then call "run" on the contents
     return rv;    
 }
@@ -42,16 +52,6 @@ int runPrompt(){
         }
     }
     return 0;    
-}
-
-int run(std::string& source) {
-    Scanner scanner(source);
-    std::vector<Token> tokens = scanner.scanTokens();
-
-    for (auto token : tokens){
-        std::cout << token << std::endl;
-    }
-    return 0;
 }
 
 int main(int argc, char* argv[]){

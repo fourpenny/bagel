@@ -3,17 +3,7 @@
 
 #include <vector>
 #include <string>
-#include <iostream>
-
-class Token {
-    public:
-        std::string rep{};
-
-    friend std::ostream& operator<<(std::ostream& os, const Token& token){
-        os << "Token(" << token.rep << ")";
-        return os;
-    }
-};
+#include "token.hpp"
 
 class Scanner {
     public:
