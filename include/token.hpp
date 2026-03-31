@@ -1,3 +1,6 @@
+#ifndef TOKEN_HPP_
+#define TOKEN_HPP_
+
 #include <string>
 #include <iostream>
 #include <any>
@@ -42,7 +45,7 @@ const std::string TokenNames[] = {
 
     "EOF"
 
-}
+};
 
 class Token {
     public:
@@ -60,3 +63,4 @@ class Token {
         return TokenNames[type] + " " + lexeme;
     }
 };
+#endif // TOKEN_HPP_
