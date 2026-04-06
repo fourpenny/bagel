@@ -11,8 +11,20 @@ class Scanner {
 
         std::vector<Token> scanTokens();
 
+        bool isAtEnd();
+
+        void scanToken();
+
+        void addToken(TokenType type);
+
+        std::string advance();
+
     private:
         std::string source;
+        std::vector<Token> tokens;
+        int start = 0;
+        int current = 0;
+        int line = 1;
 };
 
 #endif // SCANNER_HPP_
