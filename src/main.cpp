@@ -3,7 +3,10 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <optional>
+
 #include "scanner.hpp"
+#include "error.hpp"
 
 void report(int line, std::string where, std::string message){
     std::cout << "[line " << line << "] Error" << where << ": " << message; 
@@ -17,12 +20,17 @@ int handleError(int line, std::string message) {
 
 int run(std::string& source) {
     Scanner scanner(source);
-    std::vector<Token> tokens = scanner.scanTokens();
+    std::optional<LoxError> rv = scanner.scanTokens();
+    if (rv.has_value()) {
+        LoxError err = rv.value();
+        // TODO: convert enum to error string
+        handleError(err.line_num, "")
+    }
 
     for (auto token : tokens){
         std::cout << token << std::endl;
     }
-    return 0;
+    return rv;
 }
 
 int runFile(const std::string& path){

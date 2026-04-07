@@ -3,13 +3,15 @@
 
 #include <vector>
 #include <string>
+#include <optional>
 #include "token.hpp"
+#include "error.hpp"
 
 class Scanner {
     public:
         Scanner(std::string source);
 
-        std::vector<Token> scanTokens();
+        std::optional<LoxError> scanTokens();
 
         bool isAtEnd();
 
