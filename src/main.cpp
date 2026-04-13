@@ -8,23 +8,13 @@
 #include "scanner.hpp"
 #include "error.hpp"
 
-void report(int line, std::string where, std::string message){
-    std::cout << "[line " << line << "] Error" << where << ": " << message; 
-    return;
-}
-
-int handleError(int line, std::string message) {
-    report(line, "", message);
-    return 1;
-}
-
 int run(std::string& source) {
     Scanner scanner(source);
     std::optional<LoxError> rv = scanner.scanTokens();
     if (rv.has_value()) {
         LoxError err = rv.value();
         // TODO: convert enum to error string
-        handleError(err.line_num, "")
+        handleError(err.line_num, rv);
     }
 
     for (auto token : tokens){

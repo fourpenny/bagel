@@ -52,6 +52,18 @@ std::optional<LoxError> Scanner::scanToken() {
         case '*':
             addToken(TokenType::STAR);
             break;
+        case '!':
+            addToken(match('=') ? BANG_EQUAL : BANG);
+            break;
+        case '=':
+            addToken(match('=') ? EQUAL_EQUAL : EQUAL);
+            break;
+        case '<':
+            addToken(match('=') ? LESS_EQUAL : LESS);
+            break;
+        case '>':
+            addToken(match('=') ? GREATER_EQUAL : GREATER);
+            break;
         default:
             LoxError error{ErrorType::UNEXPECTED_CHAR, line};
             return error;
@@ -69,4 +81,16 @@ void Scanner::addToken(TokenType type) {
 
 char Scanner::advance() {
     return source.at(current++);
+}
+
+bool Scanner::match(char& expected) {
+    if (isAtEnd()) {
+        return false;
+    }
+    if (source.at(current) != expected) {
+        return false;
+    }
+
+    current++;
+    return true;
 }

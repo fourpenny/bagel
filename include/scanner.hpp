@@ -22,6 +22,8 @@ class Scanner {
         std::string advance();
 
     private:
+        bool match(char& expected);
+
         std::string source;
         std::vector<Token> tokens;
         int start = 0;
